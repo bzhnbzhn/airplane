@@ -1,12 +1,12 @@
-import Planes.ExperimentalPlane;
+import airport.Airport;
 import models.ClassificationLevel;
-import models.ExperimentalTypes;
 import models.MilitaryType;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import Planes.MilitaryPlane;
-import Planes.PassengerPlane;
-import Planes.Plane;
+import planes.ExperimentalPlane;
+import planes.MilitaryPlane;
+import planes.PassengerPlane;
+import planes.Plane;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,8 +27,8 @@ public class AirportTest {
             new MilitaryPlane("F-15", 1500, 12000, 10000, MilitaryType.FIGHTER),
             new MilitaryPlane("F-22", 1550, 13000, 11000, MilitaryType.FIGHTER),
             new MilitaryPlane("C-130 Hercules", 650, 5000, 110000, MilitaryType.TRANSPORT),
-            new ExperimentalPlane("Bell X-14", 277, 482, 500, ExperimentalTypes.HIGH_ALTITUDE, ClassificationLevel.SECRET),
-            new ExperimentalPlane("Ryan X-13 Vertijet", 560, 307, 500, ExperimentalTypes.VTOL, ClassificationLevel.TOP_SECRET)
+            new ExperimentalPlane("Bell X-14", 277, 482, 500, ClassificationLevel.HIGH_ALTITUDE, ClassificationLevel.SECRET),
+            new ExperimentalPlane("Ryan X-13 Vertijet", 560, 307, 500, ClassificationLevel.VTOL, ClassificationLevel.TOP_SECRET)
     );
 
     private static PassengerPlane planeWithMaxPassengerCapacity = new PassengerPlane("Boeing-747", 980, 16100, 70500, 242);
@@ -44,18 +44,18 @@ public class AirportTest {
                 break;
             }
         }
-        Assert.assertTrue(flag);
+        Assert.assertTrue(flag, "Incorrect airplane was added to military planes");
     }
 
     @Test
     public void testGetPassengerPlaneWithMaxCapacity() {
         Airport airport = new Airport(planes);
         PassengerPlane expectedPlaneWithMaxPassengersCapacity = airport.getPassengerPlaneWithMaxPassengersCapacity();
-        Assert.assertEquals(planeWithMaxPassengerCapacity, expectedPlaneWithMaxPassengersCapacity);
+        Assert.assertEquals(planeWithMaxPassengerCapacity, expectedPlaneWithMaxPassengersCapacity, "Incorrect airplane was added to a passenger plane with max capacity");
     }
 
     @Test
-    public void test3() {
+    public void testNextPlaneMaxLoadCapacityIsHigherThanCurrent() {
         Airport airport = new Airport(planes);
         airport.sortByMaxLoadCapacity();
         List<? extends Plane> planesSortedByMaxLoadCapacity = airport.getPlanes();
@@ -69,20 +69,21 @@ public class AirportTest {
                 break;
             }
         }
-        Assert.assertTrue(nextPlaneMaxLoadCapacityIsHigherThanCurrent);
+        Assert.assertTrue(nextPlaneMaxLoadCapacityIsHigherThanCurrent, "Incorrect capacity for the next plain");
     }
 
     @Test
     public void testHasAtLeastOneBomberInMilitaryPlanes() {
         Airport airport = new Airport(planes);
         List<MilitaryPlane> bomberMilitaryPlanes = airport.getBomberMilitaryPlanes();
+        boolean hasAtLeastOneBomber = false;
         for (MilitaryPlane militaryPlane : bomberMilitaryPlanes) {
             if ((militaryPlane.getType() == MilitaryType.BOMBER)) {
-            }
-            else {
-                Assert.fail("Test failed!");
+                hasAtLeastOneBomber = true;
+                break;
             }
         }
+        Assert.assertTrue(hasAtLeastOneBomber, "No bomber plain type was added");
     }
 
     @Test
@@ -96,6 +97,6 @@ public class AirportTest {
                 break;
             }
         }
-        Assert.assertFalse(hasUnclassifiedPlanes);
+        Assert.assertFalse(hasUnclassifiedPlanes, "Incorrect classification level for experimental planes");
     }
 }

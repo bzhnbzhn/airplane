@@ -1,7 +1,10 @@
+package runner;
+
+import airport.Airport;
+import models.MilitaryType;
 import planes.MilitaryPlane;
 import planes.PassengerPlane;
 import planes.Plane;
-import models.MilitaryType;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,21 +1,29 @@
-package Planes;
+package planes;
 
 import models.ClassificationLevel;
-import models.ExperimentalTypes;
 
 public class ExperimentalPlane extends Plane {
 
     private final ClassificationLevel classificationLevel;
-    private final ExperimentalTypes type;
+    private final ClassificationLevel highAltitude;
 
-    public ExperimentalPlane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity, ExperimentalTypes type, ClassificationLevel classificationLevel) {
+    public ExperimentalPlane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity, ClassificationLevel highAltitude, ClassificationLevel classificationLevel) {
         super(model, maxSpeed, maxFlightDistance, maxLoadCapacity);
-        this.type = type;
         this.classificationLevel = classificationLevel;
+        this.highAltitude = highAltitude;
+
     }
 
     public ClassificationLevel getClassificationLevel() {
         return classificationLevel;
+    }
+
+    public ClassificationLevel getHighAltitude() {
+        return highAltitude;
+    }
+
+    public String getModel() {
+        return super.model;
     }
 
     @Override
@@ -31,7 +39,7 @@ public class ExperimentalPlane extends Plane {
     @Override
     public String toString() {
         return "experimentalPlane{" +
-                "model='" + model + '\'' +
+                "model='" + getModel() + '\'' +
                 '}';
     }
 }

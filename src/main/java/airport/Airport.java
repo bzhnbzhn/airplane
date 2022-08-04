@@ -1,8 +1,10 @@
+package airport;
+
+import models.MilitaryType;
 import planes.ExperimentalPlane;
 import planes.MilitaryPlane;
 import planes.PassengerPlane;
 import planes.Plane;
-import models.MilitaryType;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -86,7 +88,7 @@ public class Airport {
     /**
      * Sorts by max speed
      *
-     * @return Airport
+     * @return airport.Airport
      */
     public Airport sortByMaxSpeed() {
         planes.sort(Comparator.comparingInt(Plane::getMS));
@@ -97,13 +99,13 @@ public class Airport {
         planes.sort(Comparator.comparingInt(Plane::getMinLoadCapacity));
     }
 
-    public List<? extends Plane> getPlanes() {
-        return planes;
+    public List<Plane> getPlanes() {
+        return (List<Plane>) planes;
     }
 
     @Override
     public String toString() {
-        return "Airport{" +
+        return "airport.Airport{" +
                 "Planes=" + planes.toString() +
                 '}';
     }
